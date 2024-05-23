@@ -6,8 +6,10 @@ import { mobile } from "../responsive";
 
 const Container = styled.div`
   height: 60px;
+  background-color: rgba(111, 211, 203, 0.3);
+  position : sticky;
+  top: 0;
   ${mobile({ height: "50px" })}
-  background-color: #ffc353;
 `;
 const Wrapper = styled.div`
   padding: 10px 20px;
