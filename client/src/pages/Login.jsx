@@ -1,14 +1,17 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
-// import { useRef } from "react"
-// import { login } from "../redux/apiCalls"
-// import { useDispatch, useSelector } from "react-redux"
-// import { Link } from "react-router-dom"
+import { useRef } from "react";
+import { login } from "../redux/apiCalls";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(rgba(190, 192, 192, 0.5), rgba(255, 255, 255, 0.5)),
+  background: linear-gradient(
+      rgba(190, 192, 192, 0.5),
+      rgba(255, 255, 255, 0.5)
+    ),
     url("https://images.pexels.com/photos/6984661/pexels-photo-6984661.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940")
       center;
   background-size: cover;
@@ -47,7 +50,8 @@ const Button = styled.button`
   cursor: pointer;
   margin-bottom: 10px;
   &:disabled {
-    color: teal;
+    color: #c9caca;
+    background-color: black;
     cursor: not-allowed;
   }
 `;
@@ -61,37 +65,36 @@ const Error = styled.span`
   color: red;
 `;
 const Login = () => {
-  // const username = useRef()
-  // const password = useRef()
-  // const dispatch = useDispatch()
-  // const { isFetching, error } = useSelector((state) => state.user)
-  // const loginHandler = (e) => {
-  //     e.preventDefault()
-  //     const obj = {
-  //         username: username.current.value,
-  //         password: password.current.value
-  //     }
-  //     login(dispatch, obj)
-  // }
+  const username = useRef();
+  const password = useRef();
+  const dispatch = useDispatch();
+  const { isFetching, error } = useSelector((state) => state.user);
+  const loginHandler = (e) => {
+    e.preventDefault();
+    const obj = {
+      username: username.current.value,
+      password: password.current.value,
+    };
+    login(dispatch, obj);
+  };
   return (
     <Container>
       <Wrapper>
         <Title>SIGN IN</Title>
-        <Form>
-          <Input placeholder="user name" type="text" />
-          <Input placeholder="password" type="password" />
-          <Button type="submit">LOGIN</Button>
+
+        <Form onSubmit={loginHandler}>
+          <Input placeholder="user name" type="text" ref={username} />
+          <Input placeholder="password" type="password" ref={password} />
+
+          <Button type="submit" disabled={isFetching}>
+            LOGIN
+          </Button>
+          {error && <Error>Some thing went wrong...</Error>}
+          <Links>FORGOT PASSWORD?</Links>
+          <Link to="/register" style={{ color: "inherit" }}>
+            <Links>CREATE A NEW ACCOUNT</Links>
+          </Link>
         </Form>
-
-        {/* <Form onSubmit={loginHandler}>
-                    <Input placeholder="user name" type="text" ref={username} />
-                    <Input placeholder="password" type="text" ref={password} />
-
-                    <Button type="submit" disabled={isFetching}>LOGIN</Button>
-                    {error && <Error>Some thing went wrong...</Error>}
-                    <Links>DO NOT YOU REMEMBER THE PASSWORD?</Links>
-                    <Link to='/register' style={{color:'inherit'}}><Links>CREATE A NEW ACCOUNT</Links></Link>
-                </Form> */}
       </Wrapper>
     </Container>
   );

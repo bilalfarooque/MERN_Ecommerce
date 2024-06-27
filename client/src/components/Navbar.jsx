@@ -3,11 +3,14 @@ import React, { memo } from "react";
 import styled from "styled-components";
 import Badge from "@mui/material/Badge";
 import { mobile } from "../responsive";
+import { useSelector} from "react-redux";
+import { useNavigate } from 'react-router-dom'
 
 const Container = styled.div`
   height: 60px;
-  background-color: rgba(111, 211, 203, 0.3);
+  background-color: rgba(111, 211, 203, 0.9);
   position : sticky;
+  z-index: 9999;
   top: 0;
   ${mobile({ height: "50px" })}
 `;
@@ -66,6 +69,17 @@ const MenuItem = styled.div`
 `;
 
 const Navbar = () => {
+  const cartQuantity = useSelector(state => state.cart.totalQuantity)
+  console.log(cartQuantity);
+
+  const navigate = useNavigate()
+
+  const routeHandler = {
+    navigate: () => {
+      navigate('/Cart');
+    },
+  }
+
   return (
     <Container>
       <Wrapper>
@@ -80,11 +94,13 @@ const Navbar = () => {
           <Logo>FITTED.</Logo>
         </Center>
         <Right>
-          <MenuItem>
-            <Badge color="primary" badgeContent={4}>
+    
+          <MenuItem onclick={routeHandler}>
+            <Badge  color="primary" badgeContent={cartQuantity}>
               <ShoppingCartOutlined />
             </Badge>
           </MenuItem>
+     
 
           <MenuItem>LOGOUT</MenuItem>
         </Right>

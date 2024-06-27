@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import StripeCheckout from 'react-stripe-checkout';
 
-const stripeKey = "pk_test_51PGFs500VgMeJ9Udw2YLb7ndtFK4eUiZv7hBOYGd9XiRMIKIgn0xDBGSDC301RrBVKJWlyhLsL0lGHsZgvXSRuFS00gGa6vz1d"
+const stripeKey = "pk_test_51PGFs500VgMeJ9Udw2YLb7ndtFK4eUiZv7hBOYGd9XiRMIKIgn0xDBGSDC301RrBVKJWlyhLsL0lGHsZgvXSRuFS00gGa6vz1d";
+
 const Pay = () => {
     const [stripeToken, setStripeToken] = useState(null)
     const navigate = useNavigate()
