@@ -17,12 +17,14 @@ const Success = () => {
                 <button style={{
                     border: 'none',
                     width: 120,
-                    borderRadius: 5,
-                    padding: '20px',
+                    borderRadius: "5px",
+                    padding: '15px',
                     backgroundColor: 'green',
                     color: 'white',
-                    fontWeight: '600',
-                    cursor: 'pointer'
+                    fontSize: "25px",
+                    fontWeight: '700',
+                    cursor: 'pointer',
+                    textAlign: "center",
                 }} onClick={successHandler}>
                     Success
                 </button>

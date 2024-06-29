@@ -7,9 +7,9 @@ import { mobile } from '../responsive'
 import { useDispatch, useSelector } from 'react-redux'
 import StripeCheckout from 'react-stripe-checkout';
 import { useEffect, useState } from 'react'
-// import { userRequest } from '../requestMethod.js'
+import { userRequest}  from '../../requestMethod'
 import { useNavigate } from 'react-router-dom'
-// import { sucessOrder } from '../redux/cartRedux'
+import { sucessOrder } from '../redux/cartRedux'
 
 const KEY = import.meta.env.VITE_STRIPE
 
@@ -137,8 +137,8 @@ const Button = styled.button`
     font-weight: 600;
 `
 const Cart = () => {
-    // const KEY = process.env.VITE_STRIPE
-    // console.log(KEY)
+    const KEY = import.meta.env.VITE_STRIPE
+    console.log(KEY)
     const cart = useSelector(state => state.cart)
     const dispatch = useDispatch()
     const [stripeToken, setStripeToken] = useState('')
@@ -147,21 +147,23 @@ const Cart = () => {
         setStripeToken(token)
     }
 
+
     useEffect(() => {
         const makeRequest = async () => {
             try {
-                const res = await userRequest.post('/payment', {
+                console.log(stripeToken.id)
+                const res = await userRequest.post('/checkout/payment', {
                     tokenId: stripeToken.id,
-                    amount: cart.total * 100
+                    amount: cart.totalPrice
                 })
-                navigate('/Success', { state: { data: res.data.data } })
-                // dispatch(sucessOrder())
+                navigate('/Success', { state: { data: res.data } })
+                dispatch(sucessOrder())
             } catch (error) {
                 console.log(error)
             }
         }
         stripeToken && makeRequest()
-    }, [stripeToken, cart.total, navigate])
+    }, [stripeToken, cart.totalPrice, navigate])
 
     const checkHandler = () => {
         console.log("hello")
@@ -231,8 +233,8 @@ const Cart = () => {
                             image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfoS4Cuacvbi0r7Crbso3AdjeXgyu6Nim6cQ&usqp=CAU"
                             billingAddress
                             shippingAddress
-                            description={`Your total is ${cart.total}`}
-                            amount={cart.total}
+                            description={`Your total is ${cart.totalPrice}`}
+                            amount={cart.totalPrice*100}
                             token={onToken}
                             stripeKey={KEY}
                         >

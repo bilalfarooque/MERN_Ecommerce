@@ -53,9 +53,14 @@ const cartSlice = createSlice({
         );
       }
     },
+    sucessOrder:(state,action)=>{
+      state.totalQuantity = 0 ,
+      state.items = []
+      state.totalPrice = 0
+  }
   },
 });
 
-export const { addItemToCart, removeItemFromCart, updateQuantity } =
+export const { addItemToCart, removeItemFromCart, updateQuantity, sucessOrder } =
   cartSlice.actions;
 export default cartSlice.reducer;

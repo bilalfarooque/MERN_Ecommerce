@@ -1,5 +1,8 @@
 import express from "express";
-import stripe from  "stripe"
+import Stripe from  "stripe";
+import dotenv from 'dotenv';
+dotenv.config()
+const stripe = new Stripe(process.env.STRIPE_KEY);
 
 const StripeRouter = express.Router()
 
